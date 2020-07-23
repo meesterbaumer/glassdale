@@ -12,6 +12,11 @@ export const CriminalList = () => {
         criminalHTMLRepresentations += crimHTMLRep(crimObj)
       }
 
-      contentTarget.innerHTML = criminalHTMLRepresentations
+      contentTarget.innerHTML = `
+      <h2>Criminals</h2>
+      <div class="criminalList" >
+      ${criminalHTMLRepresentations}
+      </div>
+      `
   })
 }
