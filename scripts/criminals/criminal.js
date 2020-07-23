@@ -1,7 +1,13 @@
 export const crimHTMLRep = (crimObj) => {
   return `
-    <section>
-      ${crimObj.name}
-    </section>
+    <div>
+      <h4>${crimObj.name}</h4>
+        <p>
+            Age: ${crimObj.age}<br>
+            Crime: ${crimObj.conviction}<br>
+            Term Start: ${crimObj.incarceration.start}<br>
+            Term End: 
+        </p>
+    </div>
   `
 }
