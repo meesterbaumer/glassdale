@@ -6,7 +6,19 @@ import { useConvictions, getConvictions } from "./ConvictionProvider.js"
 
 
 // Get a reference to the DOM element where the <select> will be rendered
+const eventHub = document.querySelector(".container")
 const contentTarget = document.querySelector(".filters__crime")
+
+contentTarget.addEventListener("change", event => {
+  // Only do this if the `crimeSelect` element was changed
+  
+  const customEvent = new CustomEvent("crimeSelected", {
+    detail: {
+      crimeId: event.target.value
+    }
+  })
+  eventHub.dispatchEvent(customEvent)
+})
 
 
     const render = convictionsCollection => {
@@ -16,12 +28,13 @@ const contentTarget = document.querySelector(".filters__crime")
             Look back at the example provided above.
         */
         contentTarget.innerHTML = `
+            <h2>Filter criminals by crime committed</h2>
             <select class="dropdown" id="crimeSelect">
                 <option value="0">Please select a crime...</option>
                 ${
                     convictionsCollection.map(
                       convictionObject => {
-                        return `<option>${convictionObject.name}</option>`
+                        return `<option value="${  convictionObject.id  }">${convictionObject.name}</option>`
                       }
                     ).join("")
                 }
