@@ -28,6 +28,24 @@ eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
 
 })
 
+
+eventHub.addEventListener("officerSelected", (event) => {
+  
+  const selectedOfficer = event.detail.officer 
+  
+  const allCriminals = useCriminals()
+  const arrestingOfficerFilter = allCriminals.filter(
+    (currentCriminalObject) => {
+      if (currentCriminalObject.arrestingOfficer === selectedOfficer) {
+        return true
+      }
+    }
+  )
+    
+    render(arrestingOfficerFilter)
+})
+
+
 const render = (criminalArr) => {
   
   let crimHTMLString = ""
