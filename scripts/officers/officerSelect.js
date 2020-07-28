@@ -24,7 +24,7 @@ const render = officerCollection => {
       ${
         officerCollection.map(
           officerObject => {
-            return `<option value="${  officerObject.id  }">${officerObject.name}</option>`
+            return `<option value="${  officerObject.name  }">${officerObject.name}</option>`
           }
         ).join("")
       }

@@ -29,28 +29,20 @@ eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
 })
 
 
-eventHub.addEventListener("officerSelect", (event) => {
+eventHub.addEventListener("officerSelected", (event) => {
   
   const selectedOfficer = event.detail.officer 
   
-  const criminals = useCriminals()
-  const arrestingOfficerFilter = criminals.find(
+  const allCriminals = useCriminals()
+  const arrestingOfficerFilter = allCriminals.filter(
     (currentCriminalObject) => {
       if (currentCriminalObject.arrestingOfficer === selectedOfficer) {
         return true
       }
     }
   )
-
-    const allCriminals = useCriminals()
-
-    const filteredCrimByOfficer = allCriminals.filter(
-      (currentCriminalObj) => {
-        return arrestingOfficerFilter.name === currentCriminalObj.id
-      }
-    )
     
-    render(filteredCrimByOfficer)
+    render(arrestingOfficerFilter)
 })
 
 
