@@ -1,12 +1,18 @@
 const eventHub = document.querySelector(".container")
 
-const dispatchStateChangeEvent = () => {
+let notes = []
+
+export const dispatchStateChangeEvent = () => {
     const noteStateChangedEvent = new CustomEvent("noteStateChanged")
 
     eventHub.dispatchEvent(noteStateChangedEvent)
 }
 
-const getNotes = () => {
+export const useNotes = () => {
+  return notes.slice()
+}
+
+export const getNotes = () => {
     return fetch('http://localhost:8088/notes')
         .then(response => response.json())
         .then(parsedNotes => {
