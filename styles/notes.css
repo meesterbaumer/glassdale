@@ -1,0 +1,7 @@
+.noteFormContainer {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  /* border: solid black 1px; */
+}

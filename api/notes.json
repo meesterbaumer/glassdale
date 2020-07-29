@@ -1,0 +1,32 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "Note about a felon",
+      "timestamp": "7/29/20",
+      "author": "Michael B",
+      "content": "I really have no clue who might have done the killing"
+    },
+    {
+      "title": "HI",
+      "author": "Bob",
+      "content": "this is text",
+      "timestamp": 1596052236867,
+      "id": 2
+    },
+    {
+      "title": "hello",
+      "author": "bob",
+      "content": "thry",
+      "timestamp": 1596052436635,
+      "id": 3
+    },
+    {
+      "title": "thr",
+      "author": "",
+      "content": "fgr",
+      "timestamp": 1596052599698,
+      "id": 4
+    }
+  ]
+}
