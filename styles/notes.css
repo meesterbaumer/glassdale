@@ -5,3 +5,10 @@
   flex-direction: column;
   /* border: solid black 1px; */
 }
+.note {
+  background-color: slategray;
+  border: solid 2px blue;
+  border-radius: .5rem;
+  padding: .5rem;
+  margin: 1rem 0;
+}
