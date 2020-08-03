@@ -2,9 +2,15 @@
 const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("click", clickEvent => {
-  if (clickEvent.target.id === "associates--") {
-  const customEvent = new CustomEvent("alibiClicked")
-  eventHub.dispatchEvent(CustomEvent)
+  if (clickEvent.target.id.startsWith("associates--")) {
+  
+    const [prefix,criminalId] = clickEvent.target.id.split("--")
+    const customEvent = new CustomEvent("alibiClicked", {
+      detail: {
+        criminalAlibiId: criminalId
+      }
+    })
+    eventHub.dispatchEvent(customEvent)
   }
 })
 

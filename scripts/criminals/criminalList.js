@@ -5,6 +5,7 @@ import { useConvictions } from '../convictions/ConvictionProvider.js';
 const contentTarget = document.querySelector(".criminalsContainer")
 const eventHub = document.querySelector(".container")
 
+// Click event to filter list of criminals down to only ones who've commited the selected crime
 eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
 
   const crimeThatWasSelected = crimeSelectedEvent.detail.crimeId
@@ -28,7 +29,7 @@ eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
 
 })
 
-
+// Click event to filter the list of criminals down based on the arresting officer
 eventHub.addEventListener("officerSelected", (event) => {
   
   const selectedOfficer = event.detail.officer 
@@ -45,9 +46,14 @@ eventHub.addEventListener("officerSelected", (event) => {
     render(arrestingOfficerFilter)
 })
 
-eventHub.addEventListener("alibiClicked", (event) => {
-  console.log("works")
-})
+
+
+// // Click event to listen for a button click on alibi button
+// eventHub.addEventListener("alibiClicked", customEvent => {
+//   const selectedCriminal = customEvent.detail.criminalAlibiId
+  
+//   console.log(selectedCriminal)
+// })
 
 
 const render = (criminalArr) => {
