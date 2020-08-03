@@ -45,6 +45,10 @@ eventHub.addEventListener("officerSelected", (event) => {
     render(arrestingOfficerFilter)
 })
 
+eventHub.addEventListener("alibiClicked", (event) => {
+  console.log("works")
+})
+
 
 const render = (criminalArr) => {
   

@@ -1,3 +1,14 @@
+
+const eventHub = document.querySelector(".container")
+
+eventHub.addEventListener("click", clickEvent => {
+  if (clickEvent.target.id === "associates--") {
+  const customEvent = new CustomEvent("alibiClicked")
+  eventHub.dispatchEvent(CustomEvent)
+  }
+})
+
+
 export const crimHTMLRep = (crimObj) => {
   return `
     <div class="criminal" >
