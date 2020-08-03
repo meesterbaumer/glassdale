@@ -3,7 +3,6 @@
   margin: auto;
   display: flex;
   flex-direction: column;
-  /* border: solid black 1px; */
 }
 .note {
   background-color: slategray;
@@ -11,4 +10,12 @@
   border-radius: .5rem;
   padding: .5rem;
   margin: 1rem 0;
+}
+.noteListContainer {
+  margin: 2rem;
+}
+
+.fields {
+  border-radius: .25rem;
+  margin: .25rem;
 }
