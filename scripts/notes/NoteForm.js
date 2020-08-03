@@ -35,7 +35,7 @@ const render = () => {
       <input type="text" class="fields" id="note--author" placeholder="Your name here" />
       <textarea class="fields" id="note--content" placeholder="Note text here" /></textarea>
 
-      <button class="fields id="saveNote">Save Note</button>
+      <button class="fields" id="saveNote">Save Note</button>
     </div>
   `
 }
