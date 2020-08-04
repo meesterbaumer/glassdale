@@ -1,10 +1,12 @@
 import { getCriminals, useCriminals } from './criminalDataProvider.js'
 import { crimHTMLRep } from "./criminal.js";
 import { useConvictions } from '../convictions/ConvictionProvider.js';
+import { renderAlibiBox } from "../Alibi/AlibiList.js";
 
 const contentTarget = document.querySelector(".criminalsContainer")
 const eventHub = document.querySelector(".container")
 
+// Click event to filter list of criminals down to only ones who've commited the selected crime
 eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
 
   const crimeThatWasSelected = crimeSelectedEvent.detail.crimeId
@@ -28,7 +30,7 @@ eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
 
 })
 
-
+// Click event to filter the list of criminals down based on the arresting officer
 eventHub.addEventListener("officerSelected", (event) => {
   
   const selectedOfficer = event.detail.officer 
@@ -59,6 +61,7 @@ const render = (criminalArr) => {
   <div class="criminalList" >
   ${crimHTMLString}
   </div>
+  ${renderAlibiBox()}
   `
 
 }
