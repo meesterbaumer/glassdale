@@ -47,15 +47,6 @@ eventHub.addEventListener("officerSelected", (event) => {
 })
 
 
-
-// // Click event to listen for a button click on alibi button
-// eventHub.addEventListener("alibiClicked", customEvent => {
-//   const selectedCriminal = customEvent.detail.criminalAlibiId
-  
-//   console.log(selectedCriminal)
-// })
-
-
 const render = (criminalArr) => {
   
   let crimHTMLString = ""
