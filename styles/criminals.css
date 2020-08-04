@@ -10,3 +10,8 @@
   padding: .5rem;
   flex-basis: 20%;
 }
+.alibiContainer {
+  border: 2px solid black;
+  padding: .5rem;
+  margin: .5rem;
+}

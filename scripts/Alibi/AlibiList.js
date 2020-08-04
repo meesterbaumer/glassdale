@@ -19,9 +19,11 @@ eventHub.addEventListener("alibiClicked", event => {
   contentTarget.innerHTML = `${
     targetedCriminal.known_associates.map(associate => {
       return `
-        <h4>${associate.name}</h4>
-        <div>${associate.alibi}</div>
-      `
+        <div class="alibiContainer">
+          <div><strong>Name:</strong> ${associate.name}</div>
+          <div><strong>Alibi:</strong> ${associate.alibi}</div>
+        </div>
+        `
     }).join("")
   }`
   contentTarget.innerHTML += `
