@@ -1,6 +1,7 @@
 import { getCriminals, useCriminals } from './criminalDataProvider.js'
 import { crimHTMLRep } from "./criminal.js";
 import { useConvictions } from '../convictions/ConvictionProvider.js';
+import { renderAlibiBox } from "../Alibi/AlibiList.js";
 
 const contentTarget = document.querySelector(".criminalsContainer")
 const eventHub = document.querySelector(".container")
@@ -60,6 +61,7 @@ const render = (criminalArr) => {
   <div class="criminalList" >
   ${crimHTMLString}
   </div>
+  ${renderAlibiBox()}
   `
 
 }

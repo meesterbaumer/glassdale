@@ -1,36 +1,37 @@
-// import { KnownAssoConverter } from "./KnowAssoHTML.js";
-import { getCriminals, useCriminals } from "../criminals/criminalDataProvider.js";
-import { crimHTMLRep } from "../criminals/criminal.js";
-// import { crimHTMLRep } from "../criminals/criminal.js";
+import { useCriminals } from "../criminals/criminalDataProvider.js";
 
 const eventHub = document.querySelector(".container")
 
-eventHub.addEventListener("alibiClicked", event => {
-  const selectedCriminal = event.detail.criminalAlibiId
-  arrayOfCriminals = useCriminals()
-
-  console.log(selectedCriminal)
-
-
-  arrayOfCriminals.find(
-    (criminal) => {
-      return parseInt(selectedCriminal) === criminal.id
-    }
-  )
-  console.log(criminal)
-
+eventHub.addEventListener("click", event => {
+  if (event.target.id === "closeButton") {
+    const dialog = event.target.parentNode
+    dialog.close()
+  }
 })
 
+eventHub.addEventListener("alibiClicked", event => {
+  const selectedCriminal = event.detail.criminalAlibiId
+  const contentTarget = document.querySelector(".alibiDialog")
 
+  const targetedCriminal = useCriminals().find(
+    (criminal) => criminal.id === parseInt(selectedCriminal))
 
-// export const ListAssoAlibis = (criminalArr) => {
-//   let alibiArray = []
-  
+  contentTarget.innerHTML = `${
+    targetedCriminal.known_associates.map(associate => {
+      return `
+        <h4>${associate.name}</h4>
+        <div>${associate.alibi}</div>
+      `
+    }).join("")
+  }`
+  contentTarget.innerHTML += `
+    <button id="closeButton">Close</button>
+    `
+  contentTarget.showModal()
+})
 
-//   const newArray = criminalArr.map(newAlibiArray => {
-
-//   }
-  
-
-  
-// }
+export const renderAlibiBox = () => {
+  return `
+    <dialog class="alibiDialog"></dialog>
+  `
+}
