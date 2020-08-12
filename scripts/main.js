@@ -7,11 +7,11 @@ import { ShowNoteButton } from "./notes/ShowNoteButton.js";
 import "./notes/NoteList.js"
 
 
-NoteForm()
 CriminalList()
 // OfficerList()
 ConvictionSelect()
 OfficerSelect()
+NoteForm()
 ShowNoteButton()
 
 
