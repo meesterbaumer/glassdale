@@ -39,4 +39,10 @@ export const deleteNote = noteId => {
         method: "DELETE"
     })
         .then(getNotes)
+        .then(dispatchStateChangeEvent)
+        .catch(
+            (error)=> {
+                console.log(error)
+            }
+        )
 }

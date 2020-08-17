@@ -1,3 +1,16 @@
+import { deleteNote } from "./NoteDataProvider.js"
+
+const eventHub = document.querySelector(".container")
+
+eventHub.addEventListener("click", event => {
+  if (event.target.id. startsWith("deleteNote--")) {
+    const [a, id] = event.target.id.split("--")
+    
+    deleteNote(id)
+  }
+})
+
+
 export const NoteHTMLConverter = (noteObject, criminalObject) => {
   return `
     <section class="note">
