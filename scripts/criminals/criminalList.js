@@ -1,10 +1,16 @@
-import { getCriminals, useCriminals } from './criminalDataProvider.js'
+import { getCriminals, useCriminals } from './criminalDataProvider.js';
+import { getFacilities, useFacilities } from "../facility/FacilityProvider.js";
+import { getCriminalFacilities, useCriminalFacilities } from "../facility/CriminalFacilityProvider.js";
 import { crimHTMLRep } from "./criminal.js";
 import { useConvictions } from '../convictions/ConvictionProvider.js';
 import { renderAlibiBox } from "../Alibi/AlibiList.js";
 
 const contentTarget = document.querySelector(".criminalsContainer")
 const eventHub = document.querySelector(".container")
+
+let criminals = []
+let crimFacs = []
+let facs = []
 
 // Click event to filter list of criminals down to only ones who've commited the selected crime
 eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
@@ -48,18 +54,34 @@ eventHub.addEventListener("officerSelected", (event) => {
 })
 
 
-const render = (criminalArr) => {
+const render = () => {
   
-  let crimHTMLString = ""
+  // let crimHTMLString = ""
 
-  criminalArr.forEach(criminal => {
-    crimHTMLString += crimHTMLRep(criminal)
-  })
-
+  const arrayOfCriminalHTMLRep = criminals.map(
+    (criminal) => {
+      const criminalFacilityRelationships = crimFacs.filter(
+        (cf) => {
+          return criminal.id === cf.criminalId
+        }
+      )
+      const matchingFacilities = criminalFacilityRelationships.map(
+        (currentRelationship) => {
+          return facs.find(
+            (fac) => {
+              return currentRelationship.facilityId === fac.id
+            }
+          )
+        }
+      )
+      return crimHTMLRep(criminal, matchingFacilities)
+    }
+  )
+  
   contentTarget.innerHTML = `
   <h2>Criminals</h2>
   <div class="criminalList" >
-  ${crimHTMLString}
+  ${arrayOfCriminalHTMLRep.join("")}
   </div>
   ${renderAlibiBox()}
   `
@@ -69,12 +91,14 @@ const render = (criminalArr) => {
 
 export const CriminalList = () => {
     getCriminals()
+      .then(getFacilities)
+      .then(getCriminalFacilities)
       .then(() => {
-        const criminals = useCriminals()
-        render(criminals)
-    
-      
 
-      
+        criminals = useCriminals()
+        facs = useFacilities()
+        crimFacs = useCriminalFacilities()
+        
+        render()
   })
 }
