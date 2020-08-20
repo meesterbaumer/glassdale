@@ -23,6 +23,7 @@ export const crimHTMLRep = (criminal, facilities) => {
       <p>
           Age: ${criminal.age}<br>
           Crime: ${criminal.conviction}<br>
+          Arresting Officer: ${criminal.arrestingOfficer}<br>
           Term Start: ${new Date(criminal.incarceration.start).toLocaleDateString('en-US')}<br>
           Term End: ${new Date(criminal.incarceration.end).toLocaleDateString('en-US')}
       </p>

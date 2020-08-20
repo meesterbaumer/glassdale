@@ -11,73 +11,50 @@ const eventHub = document.querySelector(".container")
 let criminals = []
 let crimFacs = []
 let facs = []
+const chosenFilters = {
+  crime: "0",
+  officer: "0"
+}
 
-// Click event to filter list of criminals down to only ones who've commited the selected crime
-eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
-
-  const crimeThatWasSelected = crimeSelectedEvent.detail.crimeId
-
-  const arrayOfCrimes = useConvictions()
-  const foundCrimeObject = arrayOfCrimes.find(
-    (crime) => {
-      return parseInt(crimeThatWasSelected) === crime.id
-    }
-  )
-
-  const allCriminals = useCriminals()
-
-  const filteredCriminals = allCriminals.filter(
-    (currentCriminalObj) => {
-      return foundCrimeObject.name === currentCriminalObj.conviction
-    }
-  )
-
-  render(filteredCriminals)
-
-})
-
-// Click event to filter the list of criminals down based on the arresting officer
-eventHub.addEventListener("officerSelected", (event) => {
-  
-  const selectedOfficer = event.detail.officer 
-  
-  const allCriminals = useCriminals()
-  const arrestingOfficerFilter = allCriminals.filter(
-    (currentCriminalObject) => {
-      if (currentCriminalObject.arrestingOfficer === selectedOfficer) {
-        return true
-      }
-    }
-  )
+export const CriminalList = () => {
+  getCriminals()
+  .then(getFacilities)
+  .then(getCriminalFacilities)
+  .then(() => {
     
-    render(arrestingOfficerFilter)
-})
+    criminals = useCriminals()
+    facs = useFacilities()
+    crimFacs = useCriminalFacilities()
+    
+    render()
+  })
+}
 
 
 const render = () => {
   
   // let crimHTMLString = ""
-
+  
   const arrayOfCriminalHTMLRep = criminals.map(
     (criminal) => {
       const criminalFacilityRelationships = crimFacs.filter(
         (cf) => {
           return criminal.id === cf.criminalId
         }
-      )
-      const matchingFacilities = criminalFacilityRelationships.map(
-        (currentRelationship) => {
-          return facs.find(
-            (fac) => {
-              return currentRelationship.facilityId === fac.id
+        )
+        const matchingFacilities = criminalFacilityRelationships.map(
+          (currentRelationship) => {
+            return facs.find(
+              (fac) => {
+                return currentRelationship.facilityId === fac.id
+              }
+              )
             }
-          )
-        }
-      )
-      return crimHTMLRep(criminal, matchingFacilities)
+            )
+            return crimHTMLRep(criminal, matchingFacilities)
     }
   )
-  
+          
   contentTarget.innerHTML = `
   <h2>Criminals</h2>
   <div class="criminalList" >
@@ -85,20 +62,51 @@ const render = () => {
   </div>
   ${renderAlibiBox()}
   `
-
+  
 }
 
+const filterCriminals = () => {
+  criminals = useCriminals()
+  const arrayOfCrimes = useConvictions()
 
-export const CriminalList = () => {
-    getCriminals()
-      .then(getFacilities)
-      .then(getCriminalFacilities)
-      .then(() => {
-
-        criminals = useCriminals()
-        facs = useFacilities()
-        crimFacs = useCriminalFacilities()
+  if (chosenFilters.crime !== "0") {
+    const foundCrimeObject = arrayOfCrimes.find(
+      (crime) => {
+        return parseInt(chosenFilters.crime) === crime.id
+      }
+    )
+    criminals = criminals.filter(
+      (currentCriminalObject) => {
+        return foundCrimeObject.name === currentCriminalObject.conviction
+      }
+    )
+  }
+  if (chosenFilters.officer !== "0") {
+    criminals = criminals.filter(
+      (currentCriminal) => {
+        if (currentCriminal.arrestingOfficer === chosenFilters.officer) {
+          return true
+        }
+        return false
+      }
+    )
+  }
+}
         
-        render()
-  })
-}
+        
+
+// Click event to filter list of criminals down to only ones who've commited the selected crime
+eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
+
+  chosenFilters.crime = crimeSelectedEvent.detail.crimeId
+  filterCriminals()
+  render()
+})
+
+// Click event to filter the list of criminals down based on the arresting officer
+eventHub.addEventListener("officerSelected", (event) => {
+  
+  chosenFilters.officer = event.detail.officer
+    filterCriminals()
+    render()
+})
